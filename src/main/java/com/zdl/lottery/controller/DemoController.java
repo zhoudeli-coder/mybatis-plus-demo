@@ -26,4 +26,9 @@ public class DemoController {
         lottery.setMon(1);
         return lotteryService.save(lottery);
     }
+
+    @GetMapping("/first")
+    public Lottery first(){
+        return lotteryService.firstLotter();
+    }
 }
