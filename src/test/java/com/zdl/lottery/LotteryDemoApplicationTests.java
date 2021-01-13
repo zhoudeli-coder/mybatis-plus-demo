@@ -1,6 +1,7 @@
 package com.zdl.lottery;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.common.collect.Maps;
 import com.zdl.lottery.entities.Lottery;
 import com.zdl.lottery.service.LotteryService;
@@ -24,20 +25,24 @@ public class LotteryDemoApplicationTests {
 
     @Test
     public void contextLoads() {
-        List<Lottery> lotteryList = lotteryService.list();
+        QueryWrapper queryWrapper = new QueryWrapper<Lottery>();
+        queryWrapper.le("l_id", 5265);
+        List<Lottery> lotteryList = lotteryService.list(queryWrapper);
         int[][] lotteryArray = new int[lotteryList.size()][7];
         for (int i = 0; i < lotteryList.size(); i++) {
             Lottery lottery = lotteryList.get(i);
             int[] arr = {lottery.getMon(), lottery.getTue(), lottery.getWed(), lottery.getThu(), lottery.getFri(), lottery.getSat(), lottery.getSun()};
             lotteryArray[i] = arr;
         }
-        List<KeyValueVo<Integer, Integer>> redCountVoList = printAndGetRedCountMsg(lotteryArray, lotteryList.size());
-        List<KeyValueVo<Integer, Integer>> redCountVoList2 = printAndGetRedCountMsg(lotteryArray, 33 * 7);
+        List<KeyValueVo<Integer, Integer>> redCountVoList = printAndGetRedCountMsg(lotteryArray, 100);
         List<KeyValueVo<Integer, Integer>> redCountVoList3 = printAndGetRedCountMsg(lotteryArray, 33);
         List<KeyValueVo<Integer, Integer>> redCountVoList4 = printAndGetRedCountMsg(lotteryArray, 3);
-        printMinAppearCount(6, redCountVoList, redCountVoList2, redCountVoList3, redCountVoList4);
+        printMinAppearCount(7, redCountVoList, redCountVoList3, redCountVoList4);
     }
 
+    /**
+     * 各个红号出现次数统计
+     */
     private List<KeyValueVo<Integer, Integer>> printAndGetRedCountMsg(int[][] lotteryArray, int lastRange) {
         System.out.println("------------------------------------------------------------------------------------------");
         System.out.println(String.format("统计%d期次", lastRange));
@@ -71,6 +76,9 @@ public class LotteryDemoApplicationTests {
         return countBlueVoList;
     }
 
+    /**
+     * 各个蓝号出现次数统计
+     */
     private List<KeyValueVo<Integer, Integer>> printAndGetBlueCountMsg(int[][] lotteryArray, int lastRange) {
         System.out.println("------------------------------------------------------------------------------------------");
         System.out.println(String.format("统计%d期次", lastRange));
@@ -109,6 +117,9 @@ public class LotteryDemoApplicationTests {
         return countBlueVoList;
     }
 
+    /**
+     * 排序并打印
+     */
     private void sortAndPrint(List<KeyValueVo<Integer, Integer>> voList) {
         voList.sort(Comparator.comparing(KeyValueVo::getValue));
         KeyValueVo<Integer, Integer> minVo = voList.get(0);
