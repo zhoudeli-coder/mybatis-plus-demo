@@ -20,6 +20,8 @@
 		<lombok.version>1.18.16</lombok.version>
 		<mybatis.version>3.4.1</mybatis.version>
 		<druid.version>1.0.29</druid.version>
+		<fastjson.version>1.2.72</fastjson.version>
+		<guava.version>22.0</guava.version>
 		<mysql.connector.version>5.1.38</mysql.connector.version>
 		<mysql.generator.version>3.4.1</mysql.generator.version>
 	</properties>
@@ -79,6 +81,18 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>${fastjson.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
 		</dependency>
 
 	</dependencies>
