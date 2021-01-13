@@ -46,3 +46,18 @@ logging:
       zdl:
         lottery:
           mapper: DEBUG
+  file:
+    # spring.log 输出路径
+    path: log/
+  # 日志输出格式说明:
+  # %d 输出日期时间，
+  # %thread 输出当前线程名，
+  # %-5level 输出日志级别，左对齐5个字符宽度
+  # %logger{50} 输出全类名最长50个字符，超过按照句点分割
+  # %msg 日志信息
+  # %n 换行符
+  pattern:
+    # 修改控制台输出的日志格式
+    console: '%d{yyyy-MM-dd} [%thread] %-5level %logger{50} - %msg%n'
+    # 修改文件中输出的日志格式
+    file: '%d{yyyy-MM-dd HH:mm:ss.SSS} >>> [%thread] >>> %-5level >>> %logger{50} >>> %msg%n'

@@ -10,7 +10,7 @@ import lombok.Data;
 @TableName(value = "lotteries")
 public class Lottery {
     @TableId(value = "l_id", type = IdType.AUTO)
-    private int id;
+    private int lId;
 
     @TableField("period")
     private Integer period;
