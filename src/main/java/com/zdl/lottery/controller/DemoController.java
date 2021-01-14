@@ -6,6 +6,8 @@ import com.zdl.lottery.entities.Lottery;
 import com.zdl.lottery.service.LotteryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -20,10 +22,8 @@ public class DemoController {
         return lotteryService.page(lotteryIPage);
     }
 
-    @GetMapping("/add")
-    public boolean add(){
-        Lottery lottery = new Lottery();
-        lottery.setMon(1);
+    @PostMapping("/add")
+    public boolean add(@RequestBody Lottery lottery){
         return lotteryService.save(lottery);
     }
 
