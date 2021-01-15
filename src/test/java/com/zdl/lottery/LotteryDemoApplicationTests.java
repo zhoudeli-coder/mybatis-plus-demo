@@ -27,7 +27,7 @@ public class LotteryDemoApplicationTests {
     public void contextLoads() {
         QueryWrapper queryWrapper = new QueryWrapper<Lottery>();
         queryWrapper.le("l_id", 5265);
-        List<Lottery> lotteryList = lotteryService.list(queryWrapper);
+        List<Lottery> lotteryList = lotteryService.list();
         int[][] lotteryArray = new int[lotteryList.size()][7];
         for (int i = 0; i < lotteryList.size(); i++) {
             Lottery lottery = lotteryList.get(i);
@@ -38,6 +38,9 @@ public class LotteryDemoApplicationTests {
         List<KeyValueVo<Integer, Integer>> redCountVoList3 = printAndGetRedCountMsg(lotteryArray, 33);
         List<KeyValueVo<Integer, Integer>> redCountVoList4 = printAndGetRedCountMsg(lotteryArray, 3);
         printMinAppearCount(7, redCountVoList, redCountVoList3, redCountVoList4);
+        System.out.println("最近开奖结果：");
+        Arrays.stream(lotteryArray).skip(lotteryList.size() - 5).forEach(item -> System.out.println(JSON.toJSON(item)));
+        System.out.println("==========================================================================================");
     }
 
     /**
@@ -52,6 +55,7 @@ public class LotteryDemoApplicationTests {
 
         Map<Integer, Integer> countRedMap = Maps.newLinkedHashMap();
         for (int i = 1; i < 34; i++) {
+            countRedMap.put(i, 0);
             for (int lotteryArrayLength = lotteryArray.length, k = lotteryArrayLength - lastRange; k < lotteryArrayLength; k++) {
                 int[] lottery = lotteryArray[k];
                 for (int j = 0; j < lottery.length - 1; j++) {
@@ -87,6 +91,7 @@ public class LotteryDemoApplicationTests {
         /* 出现次数*/
         Map<Integer, Integer> countBlueMap = Maps.newLinkedHashMap();
         for (int i = 1; i < 34; i++) {
+            countBlueMap.put(i, 0);
             for (int lotteryArrayLength = lotteryArray.length, k = lotteryArrayLength - lastRange; k < lotteryArrayLength; k++) {
                 int[] lottery = lotteryArray[k];
                 if (i <= 16) {
@@ -155,7 +160,7 @@ public class LotteryDemoApplicationTests {
         } while (resultList.size() < n);
 
         System.out.println(String.format("前%d条记录中找出共同的%d个数字", limit, n));
-        System.out.println(JSON.toJSON(resultList));
+        System.out.println(JSON.toJSON(resultList.stream().sorted().collect(Collectors.toList())));
         System.out.println("==========================================================================================");
     }
 }
