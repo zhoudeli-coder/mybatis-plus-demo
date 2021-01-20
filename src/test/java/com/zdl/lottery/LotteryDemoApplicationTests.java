@@ -42,10 +42,6 @@ public class LotteryDemoApplicationTests {
         sortAndPrint(redCountVoList33, false);
         printMinAppearCount(5, redCountVoList100, redCountVoList33, redCountVoList300);
 
-        System.out.println("最近开奖结果：");
-        Arrays.stream(lotteryArray).skip(lotteryList.size() - 5).forEach(item -> System.out.println(JSON.toJSON(item)));
-        System.out.println("==========================================================================================");
-
         /* 奇偶数*/
         oddAndEvenCalculate(lotteryArray, 33 * 7);
         /* 差值*/
@@ -54,6 +50,12 @@ public class LotteryDemoApplicationTests {
         printAndGetBlueCountMsg(lotteryArray, 300);
         printAndGetBlueCountMsg(lotteryArray, 100);
         printAndGetBlueCountMsg(lotteryArray, 16);
+
+        System.out.println("最近开奖结果：");
+        Arrays.stream(lotteryArray).skip(lotteryList.size() - 5).forEach(item -> System.out.println(JSON.toJSON(item)));
+        System.out.println("==========================================================================================");
+
+
     }
 
     private void offsetCalculate(int[][] lotteryArray, int lastRange) {
