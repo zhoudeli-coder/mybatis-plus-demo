@@ -47,15 +47,76 @@ public class LotteryDemoApplicationTests {
         /* 差值*/
         offsetCalculate(lotteryArray, 33);
 
-        printAndGetBlueCountMsg(lotteryArray, 300);
-        printAndGetBlueCountMsg(lotteryArray, 100);
-        printAndGetBlueCountMsg(lotteryArray, 16);
+        List<KeyValueVo<Integer, Integer>> blueCountMsg300 = printAndGetBlueCountMsg(lotteryArray, 300);
+        List<KeyValueVo<Integer, Integer>> blueCountMsg100 = printAndGetBlueCountMsg(lotteryArray, 100);
+        List<KeyValueVo<Integer, Integer>> blueCountMsg16 =  printAndGetBlueCountMsg(lotteryArray, 16);
 
         System.out.println("最近开奖结果：");
         Arrays.stream(lotteryArray).skip(lotteryList.size() - 5).forEach(item -> System.out.println(JSON.toJSON(item)));
         System.out.println("==========================================================================================");
 
+        /* 接近平均值范围的数字*/
+        List<KeyValueVo<Integer, Integer>> closeToAverageList300 = closeToAverage(0.3, redCountVoList300);
+        List<KeyValueVo<Integer, Integer>> closeToAverageList100 = closeToAverage(0.3, redCountVoList100);
+        List<KeyValueVo<Integer, Integer>> closeToAverageList33 = closeToAverage(0.3, redCountVoList33);
 
+        List<Integer> list300 = closeToAverageList300.stream().map(KeyValueVo::getKey).sorted().collect(Collectors.toList());
+        List<Integer> list100 = closeToAverageList100.stream().map(KeyValueVo::getKey).sorted().collect(Collectors.toList());
+        List<Integer> list33 = closeToAverageList33.stream().map(KeyValueVo::getKey).sorted().collect(Collectors.toList());
+
+        /* 不同数组出现N次以上的数字*/
+        System.out.println("==========================================================================================");
+        System.out.println("红球");
+        List<Integer> list = numberAppearCountGtN(2, list300, list100, list33);
+        System.out.println(list);
+
+
+        List<KeyValueVo<Integer, Integer>> closeToAverage300 = closeToAverage(0.3, blueCountMsg300);
+        List<KeyValueVo<Integer, Integer>> closeToAverage100 = closeToAverage(0.3, blueCountMsg100);
+        List<KeyValueVo<Integer, Integer>> closeToAverage16 = closeToAverage(0.3, blueCountMsg16);
+        List<Integer> list2300 = closeToAverage300.stream().map(KeyValueVo::getKey).sorted().collect(Collectors.toList());
+        List<Integer> list2100 = closeToAverage100.stream().map(KeyValueVo::getKey).sorted().collect(Collectors.toList());
+        List<Integer> list233 = closeToAverage16.stream().map(KeyValueVo::getKey).sorted().collect(Collectors.toList());
+
+        /* 不同数组出现N次以上的数字*/
+        System.out.println("==========================================================================================");
+        System.out.println("蓝球");
+        List<Integer> list2 = numberAppearCountGtN(2, list2300, list2100, list233);
+        System.out.println(list2);
+    }
+
+    private List<Integer> numberAppearCountGtN(int n, List<Integer>... lists) {
+        Map<Integer, Integer> countMap = Maps.newHashMap();
+        for (List<Integer> list : lists) {
+            for (Integer k : list) {
+                Integer c = countMap.get(k);
+                if (Objects.isNull(c)) {
+                    c = 1;
+                } else {
+                    c += 1;
+                }
+                countMap.put(k, c);
+            }
+        }
+        List<Integer> ret = Lists.newArrayList();
+        countMap.forEach((k, v) -> {
+            if (v >= 2) {
+                ret.add(k);
+            }
+        });
+        return ret;
+    }
+
+    private List<KeyValueVo<Integer, Integer>> closeToAverage(double range, List<KeyValueVo<Integer, Integer>> redCountVoList100) {
+        int size = redCountVoList100.size();
+        int coutSize = (int)(size * range);
+        redCountVoList100.sort(Comparator.comparing(KeyValueVo::getValue));
+
+        List<KeyValueVo<Integer, Integer>> newList = Lists.newArrayList();
+        for (int i = (size - coutSize) / 2; i < (size - ((size - coutSize) / 2)); i++) {
+            newList.add(redCountVoList100.get(i));
+        }
+        return newList;
     }
 
     private void offsetCalculate(int[][] lotteryArray, int lastRange) {
