@@ -34,58 +34,123 @@ public class LotteryDemoApplicationTests {
             int[] arr = {lottery.getMon(), lottery.getTue(), lottery.getWed(), lottery.getThu(), lottery.getFri(), lottery.getSat(), lottery.getSun()};
             lotteryArray[i] = arr;
         }
-        List<KeyValueVo<Integer, Integer>> redCountVoList300 = printAndGetRedCountMsg(lotteryArray, 300);
-        sortAndPrint(redCountVoList300, false);
-        List<KeyValueVo<Integer, Integer>> redCountVoList100 = printAndGetRedCountMsg(lotteryArray, 100);
-        sortAndPrint(redCountVoList100, false);
-        List<KeyValueVo<Integer, Integer>> redCountVoList33 = printAndGetRedCountMsg(lotteryArray, 33);
-        sortAndPrint(redCountVoList33, false);
-        printMinAppearCount(5, redCountVoList100, redCountVoList33, redCountVoList300);
-
-        /* 奇偶数*/
-        oddAndEvenCalculate(lotteryArray, 33 * 7);
-        /* 差值*/
-        offsetCalculate(lotteryArray, 33);
-
-        List<KeyValueVo<Integer, Integer>> blueCountMsg300 = printAndGetBlueCountMsg(lotteryArray, 300);
-        List<KeyValueVo<Integer, Integer>> blueCountMsg100 = printAndGetBlueCountMsg(lotteryArray, 100);
-        List<KeyValueVo<Integer, Integer>> blueCountMsg16 =  printAndGetBlueCountMsg(lotteryArray, 16);
-
-        System.out.println("最近开奖结果：");
-        Arrays.stream(lotteryArray).skip(lotteryList.size() - 5).forEach(item -> System.out.println(JSON.toJSON(item)));
-        System.out.println("==========================================================================================");
-
-        /* 接近平均值范围的数字*/
-        List<KeyValueVo<Integer, Integer>> closeToAverageList300 = closeToAverage(0.3, redCountVoList300);
-        List<KeyValueVo<Integer, Integer>> closeToAverageList100 = closeToAverage(0.3, redCountVoList100);
-        List<KeyValueVo<Integer, Integer>> closeToAverageList33 = closeToAverage(0.3, redCountVoList33);
-
-        List<Integer> list300 = closeToAverageList300.stream().map(KeyValueVo::getKey).sorted().collect(Collectors.toList());
-        List<Integer> list100 = closeToAverageList100.stream().map(KeyValueVo::getKey).sorted().collect(Collectors.toList());
-        List<Integer> list33 = closeToAverageList33.stream().map(KeyValueVo::getKey).sorted().collect(Collectors.toList());
-
-        /* 不同数组出现N次以上的数字*/
-        System.out.println("==========================================================================================");
-        System.out.println("红球");
-        List<Integer> list = numberAppearCountGtN(2, list300, list100, list33);
-        System.out.println(list);
-
-
-        List<KeyValueVo<Integer, Integer>> closeToAverage300 = closeToAverage(0.3, blueCountMsg300);
-        List<KeyValueVo<Integer, Integer>> closeToAverage100 = closeToAverage(0.3, blueCountMsg100);
-        List<KeyValueVo<Integer, Integer>> closeToAverage16 = closeToAverage(0.3, blueCountMsg16);
-        List<Integer> list2300 = closeToAverage300.stream().map(KeyValueVo::getKey).sorted().collect(Collectors.toList());
-        List<Integer> list2100 = closeToAverage100.stream().map(KeyValueVo::getKey).sorted().collect(Collectors.toList());
-        List<Integer> list233 = closeToAverage16.stream().map(KeyValueVo::getKey).sorted().collect(Collectors.toList());
-
-        /* 不同数组出现N次以上的数字*/
-        System.out.println("==========================================================================================");
-        System.out.println("蓝球");
-        List<Integer> list2 = numberAppearCountGtN(2, list2300, list2100, list233);
-        System.out.println(list2);
+//        List<KeyValueVo<Integer, Integer>> redCountVoList300 = printAndGetRedCountMsg(lotteryArray, 300);
+//        sortAndPrint(redCountVoList300, false);
+//        List<KeyValueVo<Integer, Integer>> redCountVoList100 = printAndGetRedCountMsg(lotteryArray, 100);
+//        sortAndPrint(redCountVoList100, false);
+//        List<KeyValueVo<Integer, Integer>> redCountVoList33 = printAndGetRedCountMsg(lotteryArray, 33);
+//        sortAndPrint(redCountVoList33, false);
+//        printMinAppearCount(5, redCountVoList100, redCountVoList33, redCountVoList300);
+//
+//        /* 奇偶数*/
+//        oddAndEvenCalculate(lotteryArray, 33 * 7);
+//        /* 差值*/
+//        offsetCalculate(lotteryArray, 33);
+//
+//        List<KeyValueVo<Integer, Integer>> blueCountMsg300 = printAndGetBlueCountMsg(lotteryArray, 300);
+//        List<KeyValueVo<Integer, Integer>> blueCountMsg100 = printAndGetBlueCountMsg(lotteryArray, 100);
+//        List<KeyValueVo<Integer, Integer>> blueCountMsg16 =  printAndGetBlueCountMsg(lotteryArray, 16);
+//
+//        System.out.println("最近开奖结果：");
+//        Arrays.stream(lotteryArray).skip(lotteryList.size() - 5).forEach(item -> System.out.println(JSON.toJSON(item)));
+//        System.out.println("==========================================================================================");
+//
+//        /* 接近平均值范围的数字*/
+//        List<KeyValueVo<Integer, Integer>> closeToAverageList300 = closeToAverage(0.3, redCountVoList300);
+//        List<KeyValueVo<Integer, Integer>> closeToAverageList100 = closeToAverage(0.3, redCountVoList100);
+//        List<KeyValueVo<Integer, Integer>> closeToAverageList33 = closeToAverage(0.3, redCountVoList33);
+//
+//        List<Integer> list300 = closeToAverageList300.stream().map(KeyValueVo::getKey).sorted().collect(Collectors.toList());
+//        List<Integer> list100 = closeToAverageList100.stream().map(KeyValueVo::getKey).sorted().collect(Collectors.toList());
+//        List<Integer> list33 = closeToAverageList33.stream().map(KeyValueVo::getKey).sorted().collect(Collectors.toList());
+//
+//        /* 不同数组出现N次以上的数字*/
+//        System.out.println("==========================================================================================");
+//        System.out.println("红球");
+//        List<Integer> list = numberAppearCountGtN(2, list300, list100, list33);
+//        System.out.println(list);
+//
+//
+//        List<KeyValueVo<Integer, Integer>> closeToAverage300 = closeToAverage(0.3, blueCountMsg300);
+//        List<KeyValueVo<Integer, Integer>> closeToAverage100 = closeToAverage(0.3, blueCountMsg100);
+//        List<KeyValueVo<Integer, Integer>> closeToAverage16 = closeToAverage(0.3, blueCountMsg16);
+//        List<Integer> list2300 = closeToAverage300.stream().map(KeyValueVo::getKey).sorted().collect(Collectors.toList());
+//        List<Integer> list2100 = closeToAverage100.stream().map(KeyValueVo::getKey).sorted().collect(Collectors.toList());
+//        List<Integer> list233 = closeToAverage16.stream().map(KeyValueVo::getKey).sorted().collect(Collectors.toList());
+//
+//        /* 不同数组出现N次以上的数字*/
+//        System.out.println("==========================================================================================");
+//        System.out.println("蓝球");
+//        List<Integer> list2 = numberAppearCountGtN(2, list2300, list2100, list233);
+//        System.out.println(list2);
+        double[] rateList = {0.4};
+        int[] rangeList = {33, 100, 300};
+        for (int i = 300; i < lotteryArray.length; ) {
+            System.out.println("从" + i + "期次开始统计");
+            suanFaYanZheng(lotteryArray, rateList, rangeList, i);
+            i += 100;
+        }
     }
 
-    private List<Integer> numberAppearCountGtN(int n, List<Integer>... lists) {
+    private void suanFaYanZheng(int[][] totalLotteryArray, double[] rateList, int[] rangeList, int from) {
+        int[][] lotteryArray = Arrays.stream(totalLotteryArray).limit(from).collect(Collectors.toList()).toArray(new int[][]{});
+        List<List<KeyValueVo<Integer, Integer>>> redList = Lists.newArrayList();
+        for (int range : rangeList) {
+            List<KeyValueVo<Integer, Integer>> redCountVoList = printAndGetRedCountMsg(lotteryArray, range);
+            redList.add(redCountVoList);
+        }
+        List<List<KeyValueVo<Integer, Integer>>> blueList = Lists.newArrayList();
+        for (int range : rangeList) {
+            List<KeyValueVo<Integer, Integer>> blueCountMsg = printAndGetBlueCountMsg(lotteryArray, range);
+            blueList.add(blueCountMsg);
+        }
+
+        for (double rate : rateList) {
+            System.out.println("========================================================================================== rate:" + rate);
+            List<List<KeyValueVo<Integer, Integer>>> closeToAverageRedList = redList.stream().map(item -> closeToAverage(rate, item)).collect(Collectors.toList());
+            List<List<KeyValueVo<Integer, Integer>>> closeToAverageBlueList = blueList.stream().map(item -> closeToAverage(rate, item)).collect(Collectors.toList());
+            List<List<Integer>> closeToAverageRedArray = closeToAverageRedList.stream()
+                    .map(item -> item.stream().map(KeyValueVo::getKey).sorted().collect(Collectors.toList()))
+                    .collect(Collectors.toList());
+            List<List<Integer>> closeToAverageBlueArray = closeToAverageBlueList.stream()
+                    .map(item -> item.stream().map(KeyValueVo::getKey).sorted().collect(Collectors.toList()))
+                    .collect(Collectors.toList());
+
+            /* 不同数组出现N次以上的数字*/
+//            System.out.println("------------------------------------------------------------------------------------------");
+//            System.out.println("红球");
+            List<Integer> list = numberAppearCountGtN(rangeList.length - 1, closeToAverageRedArray);
+            System.out.println(list);
+
+            /* 不同数组出现N次以上的数字*/
+//            System.out.println("------------------------------------------------------------------------------------------");
+//            System.out.println("蓝球");
+            List<Integer> list2 = numberAppearCountGtN(rangeList.length - 1, closeToAverageBlueArray);
+            System.out.println(list2);
+            System.out.println("------------------------------------------------------------------------------------------");
+            int matchCount = 0;
+            for (int j = from, totalLotteryArrayLength = totalLotteryArray.length; j < totalLotteryArrayLength; j++) {
+                int[] array = totalLotteryArray[j];
+                int count = 0;
+                for (int i = 0, arrayLength = array.length; i < arrayLength - 1; i++) {
+                    int k = array[i];
+                    if (list.contains(k)) {
+                        count += 1;
+                    }
+                }
+                if (count >= 3) {
+//                    System.out.println(JSON.toJSON(array));
+                    matchCount += 1;
+                } else if (list2.contains(array[6])) {
+                    System.out.println(JSON.toJSON(array));
+                    matchCount += 1;
+                }
+            }
+            System.out.println(String.format("%d-%d符合条件的期次：%d", from, totalLotteryArray.length, matchCount));
+        }
+    }
+
+    private List<Integer> numberAppearCountGtN(int n, List<List<Integer>> lists) {
         Map<Integer, Integer> countMap = Maps.newHashMap();
         for (List<Integer> list : lists) {
             for (Integer k : list) {
@@ -100,16 +165,16 @@ public class LotteryDemoApplicationTests {
         }
         List<Integer> ret = Lists.newArrayList();
         countMap.forEach((k, v) -> {
-            if (v >= 2) {
+            if (v >= n) {
                 ret.add(k);
             }
         });
         return ret;
     }
 
-    private List<KeyValueVo<Integer, Integer>> closeToAverage(double range, List<KeyValueVo<Integer, Integer>> redCountVoList100) {
+    private List<KeyValueVo<Integer, Integer>> closeToAverage(double rate, List<KeyValueVo<Integer, Integer>> redCountVoList100) {
         int size = redCountVoList100.size();
-        int coutSize = (int)(size * range);
+        int coutSize = (int) (size * rate);
         redCountVoList100.sort(Comparator.comparing(KeyValueVo::getValue));
 
         List<KeyValueVo<Integer, Integer>> newList = Lists.newArrayList();
@@ -120,9 +185,9 @@ public class LotteryDemoApplicationTests {
     }
 
     private void offsetCalculate(int[][] lotteryArray, int lastRange) {
-        System.out.println("------------------------------------------------------------------------------------------");
-        System.out.println(String.format("统计%d期次", lastRange));
-        System.out.println("------------------------------------------------------------------------------------------");
+//        System.out.println("------------------------------------------------------------------------------------------");
+//        System.out.println(String.format("统计%d期次", lastRange));
+//        System.out.println("------------------------------------------------------------------------------------------");
 
         Map<Integer, Integer> offsetMap = Maps.newLinkedHashMap();
         for (int lotteryArrayLength = lotteryArray.length, k = lotteryArrayLength - lastRange; k < lotteryArrayLength; k++) {
@@ -148,15 +213,15 @@ public class LotteryDemoApplicationTests {
             ooffsetList.add(vo);
         });
 
-        System.out.println("差值统计：");
+//        System.out.println("差值统计：");
         ooffsetList.sort(Comparator.comparing(KeyValueVo::getKey));
         sortAndPrint(ooffsetList, false);
     }
 
     private void oddAndEvenCalculate(int[][] lotteryArray, int lastRange) {
-        System.out.println("------------------------------------------------------------------------------------------");
-        System.out.println(String.format("统计%d期次", lastRange));
-        System.out.println("------------------------------------------------------------------------------------------");
+//        System.out.println("------------------------------------------------------------------------------------------");
+//        System.out.println(String.format("统计%d期次", lastRange));
+//        System.out.println("------------------------------------------------------------------------------------------");
 
         Map<Integer, Integer> oddNumMap = Maps.newLinkedHashMap();
         Map<Integer, Integer> evenNumMap = Maps.newLinkedHashMap();
@@ -196,10 +261,10 @@ public class LotteryDemoApplicationTests {
             KeyValueVo<Integer, Integer> vo = new KeyValueVo<>(key, count);
             evenNumMapList.add(vo);
         });
-        System.out.println("奇数出现的次数：");
+//        System.out.println("奇数出现的次数：");
         oddNumMapList.sort(Comparator.comparing(KeyValueVo::getKey));
         sortAndPrint(oddNumMapList, false);
-        System.out.println("偶数出现的次数：");
+//        System.out.println("偶数出现的次数：");
         oddNumMapList.sort(Comparator.comparing(KeyValueVo::getKey));
         sortAndPrint(evenNumMapList, false);
     }
@@ -208,11 +273,11 @@ public class LotteryDemoApplicationTests {
      * 各个红号出现次数统计
      */
     private List<KeyValueVo<Integer, Integer>> printAndGetRedCountMsg(int[][] lotteryArray, int lastRange) {
-        System.out.println("------------------------------------------------------------------------------------------");
-        System.out.println(String.format("统计%d期次", lastRange));
-        double avgCount = 6.0 * lastRange / 33.0;
-        System.out.println(String.format("每个红色号码平均出现次数：%s", avgCount));
-        System.out.println("------------------------------------------------------------------------------------------");
+//        System.out.println("------------------------------------------------------------------------------------------");
+//        System.out.println(String.format("统计%d期次", lastRange));
+//        double avgCount = 6.0 * lastRange / 33.0;
+//        System.out.println(String.format("每个红色号码平均出现次数：%s", avgCount));
+//        System.out.println("------------------------------------------------------------------------------------------");
 
         Map<Integer, Integer> countRedMap = Maps.newLinkedHashMap();
         for (int i = 1; i < 34; i++) {
@@ -237,7 +302,7 @@ public class LotteryDemoApplicationTests {
             KeyValueVo<Integer, Integer> vo = new KeyValueVo<>(key, count);
             countBlueVoList.add(vo);
         });
-        System.out.println("==========================================================================================");
+//        System.out.println("==========================================================================================");
         return countBlueVoList;
     }
 
@@ -245,10 +310,10 @@ public class LotteryDemoApplicationTests {
      * 各个蓝号出现次数统计
      */
     private List<KeyValueVo<Integer, Integer>> printAndGetBlueCountMsg(int[][] lotteryArray, int lastRange) {
-        System.out.println("------------------------------------------------------------------------------------------");
-        System.out.println(String.format("统计%d期次", lastRange));
-        System.out.println(String.format("每个蓝色号码平均出现次数：%s", lastRange / 16.0));
-        System.out.println("------------------------------------------------------------------------------------------");
+//        System.out.println("------------------------------------------------------------------------------------------");
+//        System.out.println(String.format("统计%d期次", lastRange));
+//        System.out.println(String.format("每个蓝色号码平均出现次数：%s", lastRange / 16.0));
+//        System.out.println("------------------------------------------------------------------------------------------");
         /* 出现次数*/
         Map<Integer, Integer> countBlueMap = Maps.newLinkedHashMap();
         for (int i = 1; i < 17; i++) {
@@ -270,16 +335,16 @@ public class LotteryDemoApplicationTests {
         Optional<Integer> minCount = countBlueMap.values().stream().min(Integer::compareTo);
         List<KeyValueVo<Integer, Integer>> countBlueVoList = Lists.newArrayList();
         countBlueMap.forEach((key, count) -> {
-            System.out.print(String.format("%02d(%03d)\t", key, count));
+//            System.out.print(String.format("%02d(%03d)\t", key, count));
             for (int i = 0; i < (count - minCount.get()); i++) {
-                System.out.print(" ");
+//                System.out.print(" ");
             }
-            System.out.print("|");
-            System.out.println();
+//            System.out.print("|");
+//            System.out.println();
             KeyValueVo<Integer, Integer> vo = new KeyValueVo<>(key, count);
             countBlueVoList.add(vo);
         });
-        System.out.println("==========================================================================================");
+//        System.out.println("==========================================================================================");
         return countBlueVoList;
     }
 
@@ -292,15 +357,15 @@ public class LotteryDemoApplicationTests {
         }
         Optional<KeyValueVo<Integer, Integer>> minVo = voList.stream().min(Comparator.comparing(KeyValueVo::getValue));
         voList.forEach(item -> {
-            System.out.print(String.format("%02d(%03d)\t", item.getKey(), item.getValue()));
+//            System.out.print(String.format("%02d(%03d)\t", item.getKey(), item.getValue()));
             for (int i = 0; i < (item.getValue() - minVo.get().getValue()); i++) {
-                System.out.print(" ");
+//                System.out.print(" ");
             }
-            System.out.print("|");
-            System.out.println();
+//            System.out.print("|");
+//            System.out.println();
 
         });
-        System.out.println("==========================================================================================");
+//        System.out.println("==========================================================================================");
     }
 
     /**
@@ -319,8 +384,8 @@ public class LotteryDemoApplicationTests {
             limit += 1;
         } while (resultList.size() < n);
 
-        System.out.println(String.format("前%d条记录中找出共同的%d个数字", limit, n));
-        System.out.println(JSON.toJSON(resultList.stream().sorted().collect(Collectors.toList())));
-        System.out.println("==========================================================================================");
+//        System.out.println(String.format("前%d条记录中找出共同的%d个数字", limit, n));
+//        System.out.println(JSON.toJSON(resultList.stream().sorted().collect(Collectors.toList())));
+//        System.out.println("==========================================================================================");
     }
 }
