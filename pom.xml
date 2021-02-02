@@ -22,6 +22,7 @@
 		<druid.version>1.0.29</druid.version>
 		<fastjson.version>1.2.72</fastjson.version>
 		<guava.version>22.0</guava.version>
+		<freemarker.version>2.3.30</freemarker.version>
 		<mysql.connector.version>5.1.38</mysql.connector.version>
 		<mysql.generator.version>3.4.1</mysql.generator.version>
 	</properties>
@@ -95,6 +96,11 @@
 			<version>${guava.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>${freemarker.version}</version>
+		</dependency>
 	</dependencies>
 
 </project>
